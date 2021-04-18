@@ -114,6 +114,16 @@ ax.set_ylabel('Spannung [in mV]')
 ax.set_title('Kennlinie');
 show()
 
+
+excellogawerteEingang = np.log(messdistanz)
+excellogawerteAusgang = np.log(data_means)
+excelx = excellogawerteEingang[:]
+excely = excellogawerteAusgang[:]
+(excela, excelb) = np.polyfit(excelx, excely, 1)
+excelyp = np.polyval([excela, excelb], excelx)
+print("EXCEL: Nichtlineare Kennlinie: y = e^%.3f * x^%.3f" % (excela, excelb))
+#excelnewY = pow(e, excelb) * pow(messdistanz, excela) #Rückrechnung
+
 #Nummer 3
 
 #Line re, wert a und b für => y' = a * x' + b
@@ -170,9 +180,6 @@ print(r"Messergebnis Breite mit 68.26 Sicherheit: %f V bis %f V" % (korrekteAnga
 print(r"Messergebnis Breite mit 95 Sicherheit: %f V bis %f V" % (korrekteAngabe_95B[1],korrekteAngabe_95B[0]))
 
 print("\n")
-print("\n")
-print("\n")
-
 #Nummer 2 LÄNGE
 y_meanL = np.mean(dina4_laenge, dtype=float)
 y_stdL = np.std(dina4_laenge, dtype=float) # Mittelwert EINZELWERT
@@ -185,3 +192,20 @@ korrekteAngabe_6826L = (y_meanL + t_6826 * y_empstdL, y_meanL - t_6826 * y_empst
 korrekteAngabe_95L = (y_meanL + t_95 * y_empstdL, y_meanL - t_95 * y_empstdL)
 print(r"Messergebnis Laenge mit 68.26 Sicherheit: %f V bis %f V" % (korrekteAngabe_6826L[1], korrekteAngabe_6826L[0]))
 print(r"Messergebnis Laenge mit 95 Sicherheit: %f V bis %f V" % (korrekteAngabe_95L[1],korrekteAngabe_95L[0]))
+
+#Nummer 3 Breite
+#Fehlerfortpflanzung
+
+discordwert = (pow(e, b) * pow(21, a)) # Kennlinie a1.pdf Discord
+deriativeDiscord = 1.81023 * pow(21,2.682) #Wolfram Alpha ausgerchnet #21 ist VARIABLE X EINFACH IRGENDEIN CM / Strecke
+#deltaXDISCORD =
+
+#FINALWERT = Discordwert +- deriative * delta x
+print("Laenge: %f mV" % discordwert)
+
+
+
+excelnewY = (pow(e, excelb) * pow(210, excela)) # Kennline Excel Tabellen Moodle
+deriativeMoodle = 4.36322 * pow(21,7.966) #Wolfram Alpha ausgerchnet #21 ist VARIABLE X EINFACH IRGENDEIN CM / Strecke
+#deltaXMOODLE =
+print("Laenge: %f V" % excelnewY)
