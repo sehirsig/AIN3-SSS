@@ -40,3 +40,7 @@ ax.set_xlabel('Abstand [in cm]')
 ax.set_ylabel('Spannung [in mV]')
 ax.set_title('Kennlinien');
 show()
+
+data = np.genfromtxt('../messwerte/m1.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(3,4))
+
+print(data)
