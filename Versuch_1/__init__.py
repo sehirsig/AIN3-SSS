@@ -32,8 +32,6 @@ wertenichtflip = np.array([[69, 375.4],
 
 werte = np.flip(wertenichtflip)
 
-print(werte)
-
 #matplotlib.rcParams.update({'font.size': 18, 'text.usetex': True})
 #reset: matplotlib.rcParams.update({'font.size': 12, 'font.family': 'sans', 'text.usetex': False})
 
@@ -76,7 +74,7 @@ data_list = [m1_data, m2_data, m3_data, m4_data, m5_data, m6_data, m7_data,
 
 file_mean = open("mean_data.txt", "w+")
 file_std = open("std_data.txt", "w+")
-print("start saving")
+print("start saving Data ...")
 count = 0;
 
 data_means = []
@@ -90,10 +88,7 @@ for i in data_list:
     file_mean.write(" STD: %f\n" % loc_data_std)
     data_means.append(loc_data_mean)
 
-
-print(data_means)
-
-print("saved")
+print("Data saved")
 #for file_name in glob.glob("../messwerte/*csv"):
 #    m_data = m1_data_time = np.genfromtxt(file_name, dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
 #    loc_data_mean = np.mean(m_data, dtype=float)
@@ -128,17 +123,19 @@ ax.set_title('Kennlinie');
 show()
 
 #Nummer 3
-linreg = np.polyfit(logawerte[:,0], logawerte[:,1], 1)
-linre = np.polyval([logawerte[:,0], logawerte[:,1]], logawerte[:,0])
 
+#Line re, wert a und b für => y' = a * x' + b
+#y = e^b * x^a
 
 x = logawerte[:,0]
 y = logawerte[:,1]
 
-(m, b) = np.polyfit(x, y, 1)
-print(m, b)
+(a, b) = np.polyfit(x, y, 1)
 
-yp = np.polyval([m, b], x)
+#wert a und b für => y' = a * x' + b
+#y = e^b * x^a
+
+yp = np.polyval([a, b], x)
 fig, ax = plt.subplots()
 
 ax.plot(x, yp)
@@ -148,3 +145,5 @@ ax.set_xlabel('Abstand [in cm]')
 ax.set_ylabel('Spannung [in mV]')
 ax.set_title("Kennlinie")
 show()
+
+print("Nichtlineare Kennungslinie: y = e^%.3f * x^%.3f" % (a, b))
