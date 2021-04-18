@@ -6,8 +6,10 @@ from numpy import *
 from pylab import *
 import os
 
-#
-werte = array([[69, 375.4],
+
+#AUFGABE 1
+
+wertenichtflip = np.array([[69, 375.4],
               [66, 379.9],
               [63, 384.4],
               [60, 400.7],
@@ -27,6 +29,8 @@ werte = array([[69, 375.4],
               [18, 972.5],
               [15, 1075.0],
               [12, 1231.0]])
+
+werte = np.flip(wertenichtflip)
 
 print(werte)
 
@@ -98,7 +102,6 @@ print("saved")
 #    file_mean.write("%d: Mean: %1.5f |" % (count, loc_data_mean))
 #    file_mean.write(" STD: %f\n" % loc_data_std)
 
-fig, axes = plt.subplots(1, 2, figsize=(10,3))
 
 fig, ax = plt.subplots()
 
@@ -106,4 +109,42 @@ ax.plot(messdistanz[:], data_means[:])
 ax.set_xlabel('Abstand [in mm]')
 ax.set_ylabel('Spannung [in mV]')
 ax.set_title('Kennlinien');
+show()
+
+# Aufgabe 2.
+# Nummer 1 Logarithmieren
+logawerteEingang = np.log(werte[:,0])
+logawerteAusgang = np.log(werte[:,1])
+
+# Nummer 2 Neue Kennlinie
+logawerte = np.log(werte)
+
+fig, ax = plt.subplots()
+
+ax.plot(logawerte[:,0], logawerte[:,1])
+ax.set_xlabel('Abstand [in cm]')
+ax.set_ylabel('Spannung [in mV]')
+ax.set_title('Kennlinie');
+show()
+
+#Nummer 3
+linreg = np.polyfit(logawerte[:,0], logawerte[:,1], 1)
+linre = np.polyval([logawerte[:,0], logawerte[:,1]], logawerte[:,0])
+
+
+x = logawerte[:,0]
+y = logawerte[:,1]
+
+(m, b) = np.polyfit(x, y, 1)
+print(m, b)
+
+yp = np.polyval([m, b], x)
+fig, ax = plt.subplots()
+
+ax.plot(x, yp)
+ax.grid(True)
+ax.scatter(x,y)
+ax.set_xlabel('Abstand [in cm]')
+ax.set_ylabel('Spannung [in mV]')
+ax.set_title("Kennlinie")
 show()
