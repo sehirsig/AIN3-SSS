@@ -146,4 +146,4 @@ ax.set_ylabel('Log Spannung [in mV]')
 ax.set_title("Log Kennlinie")
 show()
 
-print("Nichtlineare Kennungslinie: y = e^%.3f * x^%.3f" % (a, b))
+print("Nichtlineare Kennlinie: y = e^%.3f * x^%.3f" % (a, b))
