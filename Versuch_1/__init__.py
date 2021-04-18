@@ -97,7 +97,7 @@ print("Data saved")
 #    file_mean.write("%d: Mean: %1.5f |" % (count, loc_data_mean))
 #    file_mean.write(" STD: %f\n" % loc_data_std)
 
-
+#plot
 fig, ax = plt.subplots()
 
 ax.plot(messdistanz[:], data_means[:])
@@ -114,6 +114,7 @@ logawerteAusgang = np.log(werte[:,1])
 # Nummer 2 Neue Kennlinie
 logawerte = np.log(werte)
 
+#plot
 fig, ax = plt.subplots()
 
 ax.plot(logawerte[:,0], logawerte[:,1])
@@ -136,6 +137,8 @@ y = logawerte[:,1]
 #y = e^b * x^a
 
 yp = np.polyval([a, b], x)
+
+#plot
 fig, ax = plt.subplots()
 
 ax.plot(x, yp)
@@ -146,4 +149,11 @@ ax.set_ylabel('Log Spannung [in mV]')
 ax.set_title("Log Kennlinie")
 show()
 
+#Ergebnis
 print("Nichtlineare Kennlinie: y = e^%.3f * x^%.3f" % (a, b))
+
+newY = pow(e, b) * pow(werte[:,0], a)
+print(newY)
+
+
+#Aufgabe 3
