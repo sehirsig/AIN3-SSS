@@ -1,7 +1,11 @@
+import glob
+
 import matplotlib
 import matplotlib.pyplot as plt
 from numpy import *
 from pylab import *
+import os
+
 #
 werte = array([[69, 375.4],
               [66, 379.9],
@@ -28,19 +32,78 @@ print(werte)
 
 #matplotlib.rcParams.update({'font.size': 18, 'text.usetex': True})
 #reset: matplotlib.rcParams.update({'font.size': 12, 'font.family': 'sans', 'text.usetex': False})
-x = linspace(0, 5, 10)
 
+#fig, axes = plt.subplots(1, 2, figsize=(10,3))
+
+#fig, ax = plt.subplots()
+
+#ax.plot(werte[:,0], werte[:,1])
+#ax.set_xlabel('Abstand [in cm]')
+#ax.set_ylabel('Spannung [in mV]')
+#ax.set_title('Kennlinien');
+#show()
+
+m1_data_time = np.genfromtxt('../messwerte/m1.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(3))
+
+m1_data = np.genfromtxt('../messwerte/m1.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
+m2_data = np.genfromtxt('../messwerte/m2.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
+m3_data = np.genfromtxt('../messwerte/m3.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
+m4_data = np.genfromtxt('../messwerte/m4.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
+m5_data = np.genfromtxt('../messwerte/m5.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
+m6_data = np.genfromtxt('../messwerte/m6.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
+m7_data = np.genfromtxt('../messwerte/m7.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
+m8_data = np.genfromtxt('../messwerte/m8.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
+m9_data = np.genfromtxt('../messwerte/m9.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
+m10_data = np.genfromtxt('../messwerte/m10.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
+m11_data = np.genfromtxt('../messwerte/m11.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
+m12_data = np.genfromtxt('../messwerte/m12.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
+m13_data = np.genfromtxt('../messwerte/m13.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
+m14_data = np.genfromtxt('../messwerte/m14.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
+m15_data = np.genfromtxt('../messwerte/m15.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
+m16_data = np.genfromtxt('../messwerte/m16.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
+m17_data = np.genfromtxt('../messwerte/m17.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
+m18_data = np.genfromtxt('../messwerte/m18.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
+m19_data = np.genfromtxt('../messwerte/m19.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
+m20_data = np.genfromtxt('../messwerte/m20.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
+
+data_list = [m1_data, m2_data, m3_data, m4_data, m5_data, m6_data, m7_data,
+             m8_data, m9_data, m10_data, m11_data, m12_data, m13_data, m14_data,
+             m15_data, m16_data, m17_data, m18_data, m19_data, m20_data]
+
+file_mean = open("mean_data.txt", "w+")
+file_std = open("std_data.txt", "w+")
+print("start saving")
+count = 0;
+
+data_means = []
+messdistanz = [100, 130, 160, 190, 220, 250, 280, 310, 330, 360, 390, 420, 450, 480, 510, 540, 570, 600, 630, 660]
+
+for i in data_list:
+    loc_data_mean = np.mean(i, dtype=float)
+    loc_data_std = np.std(i, dtype=float)
+    count = count + 1
+    file_mean.write("%d: Mean: %1.5f |" % (count, loc_data_mean))
+    file_mean.write(" STD: %f\n" % loc_data_std)
+    data_means.append(loc_data_mean)
+
+
+print(data_means)
+
+print("saved")
+#for file_name in glob.glob("../messwerte/*csv"):
+#    m_data = m1_data_time = np.genfromtxt(file_name, dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
+#    loc_data_mean = np.mean(m_data, dtype=float)
+#    loc_data_std = np.std(m_data, dtype=float)
+#    count = count + 1
+#    file_mean.write("%d: Mean: %1.5f |" % (count, loc_data_mean))
+#    file_mean.write(" STD: %f\n" % loc_data_std)
 
 fig, axes = plt.subplots(1, 2, figsize=(10,3))
 
 fig, ax = plt.subplots()
 
-ax.plot(werte[:,0], werte[:,1])
-ax.set_xlabel('Abstand [in cm]')
+ax.plot(messdistanz[:], data_means[:])
+ax.set_xlabel('Abstand [in mm]')
 ax.set_ylabel('Spannung [in mV]')
 ax.set_title('Kennlinien');
 show()
-
-data = np.genfromtxt('../messwerte/m1.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(3,4))
-
-print(data)
