@@ -30,23 +30,10 @@ wertenichtflip = np.array([[69, 375.4],
               [15, 1075.0],
               [12, 1231.0]])
 
-werte = np.flip(wertenichtflip)
+werte = np.flip(wertenichtflip) #Flippen, da der Dude ders erstellt hat falsch rum gemessen hat.
 
-#matplotlib.rcParams.update({'font.size': 18, 'text.usetex': True})
-#reset: matplotlib.rcParams.update({'font.size': 12, 'font.family': 'sans', 'text.usetex': False})
 
-#fig, axes = plt.subplots(1, 2, figsize=(10,3))
-
-#fig, ax = plt.subplots()
-
-#ax.plot(werte[:,0], werte[:,1])
-#ax.set_xlabel('Abstand [in cm]')
-#ax.set_ylabel('Spannung [in mV]')
-#ax.set_title('Kennlinien');
-#show()
-
-m1_data_time = np.genfromtxt('../messwerte/m1.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(3))
-
+#Daten einlesen (Moodle Daten) Hieraus Funktion machen!
 m1_data = np.genfromtxt('../messwerte/m1.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
 m2_data = np.genfromtxt('../messwerte/m2.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
 m3_data = np.genfromtxt('../messwerte/m3.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
@@ -76,10 +63,11 @@ file_mean = open("mean_data.txt", "w+")
 file_std = open("std_data.txt", "w+")
 print("start saving Data ...")
 count = 0;
-
+#Hier kann man (oder drüber) die data_list und messdistanz in eine liste packen, mit zugehörigen tupeln z.b., oder wie oben (ARRAY/ARRAY)
 data_means = []
 messdistanz = [100, 130, 160, 190, 220, 250, 280, 310, 330, 360, 390, 420, 450, 480, 510, 540, 570, 600, 630, 660]
 
+#plot
 for i in data_list:
     loc_data_mean = np.mean(i, dtype=float)
     loc_data_std = np.std(i, dtype=float)
@@ -89,14 +77,6 @@ for i in data_list:
     data_means.append(loc_data_mean)
 
 print("Data saved")
-#for file_name in glob.glob("../messwerte/*csv"):
-#    m_data = m1_data_time = np.genfromtxt(file_name, dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
-#    loc_data_mean = np.mean(m_data, dtype=float)
-#    loc_data_std = np.std(m_data, dtype=float)
-#    count = count + 1
-#    file_mean.write("%d: Mean: %1.5f |" % (count, loc_data_mean))
-#    file_mean.write(" STD: %f\n" % loc_data_std)
-
 #plot
 fig, ax = plt.subplots()
 
