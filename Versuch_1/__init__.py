@@ -32,6 +32,17 @@ wertenichtflip = np.array([[69, 375.4],
 
 werte = np.flip(wertenichtflip) #Flippen, da der Dude ders erstellt hat falsch rum gemessen hat.
 
+fig, ax = plt.subplots()
+werte_x = werte[:,1]
+werte_y = werte[:,0]
+#werte[:,1] = x
+#werte[:,0] = y
+ax.plot(werte_x, werte_y)
+ax.set_xlabel('Abstand [in mm]')
+ax.set_ylabel('Spannung [in mV]')
+ax.set_title('Kennlinien');
+show()
+
 
 #Daten einlesen (Moodle Daten) Hieraus Funktion machen!
 m1_data = np.genfromtxt('../messwerte/m1.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
@@ -78,26 +89,26 @@ for i in data_list:
 
 print("Data saved")
 #plot
-fig, ax = plt.subplots()
+#fig, ax = plt.subplots()
 
-ax.plot(messdistanz[:], data_means[:])
-ax.set_xlabel('Abstand [in mm]')
-ax.set_ylabel('Spannung [in mV]')
-ax.set_title('Kennlinien');
-show()
+#ax.plot(messdistanz[:], data_means[:])
+#ax.set_xlabel('Abstand [in mm]')
+#ax.set_ylabel('Spannung [in mV]')
+#ax.set_title('Kennlinien');
+#show()
 
 # Aufgabe 2.
 # Nummer 1 Logarithmieren
-logawerteEingang = np.log(werte[:,0])
-logawerteAusgang = np.log(werte[:,1])
+logawerteEingang = np.log(werte_x)
+logawerteAusgang = np.log(werte_y)
 
 # Nummer 2 Neue Kennlinie
 logawerte = np.log(werte)
-
+print(logawerte)
 #plot
 fig, ax = plt.subplots()
 
-ax.plot(logawerte[:,0], logawerte[:,1])
+ax.plot(logawerte[:,1], logawerte[:,0]) # logawerte[:,1] = x, logawerte[:,0] = y
 ax.set_xlabel('Abstand [in cm]')
 ax.set_ylabel('Spannung [in mV]')
 ax.set_title('Kennlinie');
@@ -108,8 +119,8 @@ show()
 #Line re, wert a und b für => y' = a * x' + b
 #y = e^b * x^a
 
-x = logawerte[:,0]
-y = logawerte[:,1]
+x = logawerte[:,1]
+y = logawerte[:,0]
 
 (a, b) = np.polyfit(x, y, 1)
 
@@ -120,7 +131,6 @@ yp = np.polyval([a, b], x)
 
 #plot
 fig, ax = plt.subplots()
-
 ax.plot(x, yp)
 ax.grid(True)
 ax.scatter(x,y)
@@ -132,8 +142,46 @@ show()
 #Ergebnis
 print("Nichtlineare Kennlinie: y = e^%.3f * x^%.3f" % (a, b))
 
-newY = pow(e, b) * pow(werte[:,0], a)
-print(newY)
+#newY = pow(e, b) * pow(werte[:,1], a) #Rückrechnung
+#print(newY)
 
 
 #Aufgabe 3
+#Nummer 1
+#DIN A4 PDF a1.pdf
+#Länge: 29,7cm -> 697,6 mV
+#Breite: 21cm -> 877mV
+dina4_breite = np.genfromtxt('../messwerte/dina4b.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
+dina4_laenge = np.genfromtxt('../messwerte/dina4l.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
+
+t_6826 = 1.03 # Faktor t bei Sicherheit P = 68,26%
+t_95 = 2.09 # Faktor t bei Sicherheit P = 95%
+
+#Nummer 2 BREITE
+y_meanB = np.mean(dina4_breite, dtype=float)
+y_stdB = np.std(dina4_breite, dtype=float) # Mittelwert EINZELWERT
+y_empstdB = (y_stdB / sqrt(dina4_breite.size)) # Mittelwert alle Werte
+print("\n\nArithmetisches Mittel Breite Ausgangswerte: %f V" % y_meanB)
+print("Empirische Standardabweichung Breite Ausgangswerte: %f V" % y_empstdB)
+
+korrekteAngabe_6826B = (y_meanB + t_6826 * y_empstdB, y_meanB - t_6826 * y_empstdB)
+korrekteAngabe_95B = (y_meanB + t_95 * y_empstdB, y_meanB - t_95 * y_empstdB)
+print(r"Messergebnis Breite mit 68.26 Sicherheit: %f V bis %f V" % (korrekteAngabe_6826B[1], korrekteAngabe_6826B[0]))
+print(r"Messergebnis Breite mit 95 Sicherheit: %f V bis %f V" % (korrekteAngabe_95B[1],korrekteAngabe_95B[0]))
+
+print("\n")
+print("\n")
+print("\n")
+
+#Nummer 2 LÄNGE
+y_meanL = np.mean(dina4_laenge, dtype=float)
+y_stdL = np.std(dina4_laenge, dtype=float) # Mittelwert EINZELWERT
+y_empstdL = (y_stdL / sqrt(dina4_laenge.size)) # Mittelwert alle Werte
+print("Arithmetisches Mittel Laenge Ausgangswerte: %f V" % y_meanL)
+print("Empirische Standardabweichung Laenge Ausgangswerte: %f V" % y_empstdL)
+
+
+korrekteAngabe_6826L = (y_meanL + t_6826 * y_empstdL, y_meanL - t_6826 * y_empstdL)
+korrekteAngabe_95L = (y_meanL + t_95 * y_empstdL, y_meanL - t_95 * y_empstdL)
+print(r"Messergebnis Laenge mit 68.26 Sicherheit: %f V bis %f V" % (korrekteAngabe_6826L[1], korrekteAngabe_6826L[0]))
+print(r"Messergebnis Laenge mit 95 Sicherheit: %f V bis %f V" % (korrekteAngabe_95L[1],korrekteAngabe_95L[0]))
