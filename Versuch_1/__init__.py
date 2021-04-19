@@ -9,38 +9,38 @@ import os
 
 #AUFGABE 1
 
-wertenichtflip = np.array([[69, 375.4],
-              [66, 379.9],
-              [63, 384.4],
-              [60, 400.7],
-              [57, 416.8],
-              [54, 424.1],
-              [51, 462.7],
-              [48, 484.1],
-              [45, 510.4],
-              [42, 524.2],
-              [39, 563.8],
-              [36, 616.9],
-              [33, 658.6],
-              [30, 697.7],
-              [27, 763.8],
-              [24, 820.2],
-              [21, 896.3],
-              [18, 972.5],
-              [15, 1075.0],
-              [12, 1231.0]])
+wertenichtflip = np.array([[69, 0.3754],
+              [66, 0.3799],
+              [63, 0.3844],
+              [60, 0.4007],
+              [57, 0.4168],
+              [54, 0.4241],
+              [51, 0.4627],
+              [48, 0.4841],
+              [45, 0.5104],
+              [42, 0.5242],
+              [39, 0.5638],
+              [36, 0.6169],
+              [33, 0.6586],
+              [30, 0.6977],
+              [27, 0.7638],
+              [24, 0.8202],
+              [21, 0.8963],
+              [18, 0.9725],
+              [15, 1.0750],
+              [12, 1.2310]])
 
 werte = np.flip(wertenichtflip) #Flippen, da der Dude ders erstellt hat falsch rum gemessen hat.
 
 fig, ax = plt.subplots()
-werte_x = werte[:,1]
-werte_y = werte[:,0]
+werte_x = werte[:,0]
+werte_y = werte[:,1]
 #werte[:,1] = x
 #werte[:,0] = y
 ax.plot(werte_x, werte_y)
-ax.set_xlabel('Abstand [in mm]')
-ax.set_ylabel('Spannung [in mV]')
-ax.set_title('Kennlinien');
+ax.set_xlabel('Spannung [in mV]')
+ax.set_ylabel('Abstand [in mm]')
+ax.set_title('a1.pdf Kennlinien');
 show()
 
 
@@ -104,14 +104,14 @@ logawerteAusgang = np.log(werte_y)
 
 # Nummer 2 Neue Kennlinie
 logawerte = np.log(werte)
-print(logawerte)
+
 #plot
 fig, ax = plt.subplots()
 
-ax.plot(logawerte[:,1], logawerte[:,0]) # logawerte[:,1] = x, logawerte[:,0] = y
-ax.set_xlabel('Abstand [in cm]')
-ax.set_ylabel('Spannung [in mV]')
-ax.set_title('Kennlinie');
+ax.plot(logawerteEingang, logawerteAusgang) # logawerte[:,1] = x, logawerte[:,0] = y
+ax.set_xlabel('Spannung [in V]')
+ax.set_ylabel('Abstand [in cm]')
+ax.set_title('MOODLE Kennlinie');
 show()
 
 
@@ -129,8 +129,8 @@ print("EXCEL: Nichtlineare Kennlinie: y = e^%.3f * x^%.3f" % (excela, excelb))
 #Line re, wert a und b für => y' = a * x' + b
 #y = e^b * x^a
 
-x = logawerte[:,1]
-y = logawerte[:,0]
+x = logawerteEingang
+y = logawerteAusgang
 
 (a, b) = np.polyfit(x, y, 1)
 
@@ -144,9 +144,9 @@ fig, ax = plt.subplots()
 ax.plot(x, yp)
 ax.grid(True)
 ax.scatter(x,y)
-ax.set_xlabel('Log Abstand [in cm]')
-ax.set_ylabel('Log Spannung [in mV]')
-ax.set_title("Log Kennlinie")
+ax.set_xlabel('Log Spannung [in V]')
+ax.set_ylabel('Log Abstand [in cm]')
+ax.set_title("DISCORD Log Kennlinie")
 show()
 
 #Ergebnis
@@ -167,22 +167,27 @@ dina4_laenge = np.genfromtxt('../messwerte/dina4l.csv', dtype = float, delimiter
 t_6826 = 1.03 # Faktor t bei Sicherheit P = 68,26%
 t_95 = 2.09 # Faktor t bei Sicherheit P = 95%
 
+discord_breite = 0.6796 #V
+discord_laenge = 0.877 #V
+
 #Nummer 2 BREITE
-y_meanB = np.mean(dina4_breite, dtype=float)
-y_stdB = np.std(dina4_breite, dtype=float) # Mittelwert EINZELWERT
+#y_meanB = np.mean(dina4_breite, dtype=float)
+y_meanB = discord_breite
+y_stdB = np.std(dina4_breite, dtype=float) # Mittelwert EINZELWERT #1000 Da Volt in mV
 y_empstdB = (y_stdB / sqrt(dina4_breite.size)) # Mittelwert alle Werte
 print("\n\nArithmetisches Mittel Breite Ausgangswerte: %f V" % y_meanB)
 print("Empirische Standardabweichung Breite Ausgangswerte: %f V" % y_empstdB)
 
 korrekteAngabe_6826B = (y_meanB + t_6826 * y_empstdB, y_meanB - t_6826 * y_empstdB)
 korrekteAngabe_95B = (y_meanB + t_95 * y_empstdB, y_meanB - t_95 * y_empstdB)
-print(r"Messergebnis Breite mit 68.26 Sicherheit: %f V bis %f V" % (korrekteAngabe_6826B[1], korrekteAngabe_6826B[0]))
+print(r"Messergebnis Breite mit 68.26 Sicherheit: %f mV bis %f V" % (korrekteAngabe_6826B[1], korrekteAngabe_6826B[0]))
 print(r"Messergebnis Breite mit 95 Sicherheit: %f V bis %f V" % (korrekteAngabe_95B[1],korrekteAngabe_95B[0]))
 
 print("\n")
 #Nummer 2 LÄNGE
-y_meanL = np.mean(dina4_laenge, dtype=float)
-y_stdL = np.std(dina4_laenge, dtype=float) # Mittelwert EINZELWERT
+#y_meanL = np.mean(dina4_laenge, dtype=float)
+y_meanL = discord_laenge
+y_stdL = np.std(dina4_laenge, dtype=float) # Mittelwert EINZELWERT 1000, da Volt in mV
 y_empstdL = (y_stdL / sqrt(dina4_laenge.size)) # Mittelwert alle Werte
 print("Arithmetisches Mittel Laenge Ausgangswerte: %f V" % y_meanL)
 print("Empirische Standardabweichung Laenge Ausgangswerte: %f V" % y_empstdL)
@@ -195,17 +200,40 @@ print(r"Messergebnis Laenge mit 95 Sicherheit: %f V bis %f V" % (korrekteAngabe_
 
 #Nummer 3 Breite
 #Fehlerfortpflanzung
+variable_discord_spannungL = 0.6976
+discordwertL = (pow(e, b) * pow(variable_discord_spannungL, a)) # Kennlinie a1.pdf Discord
+deriativeDiscordL = 3.12093 * pow(variable_discord_spannungL,11.393) #Wolfram Alpha ausgerchnet #21 ist VARIABLE X EINFACH IRGENDEIN CM / Strecke
+deltaXDISCORDL = y_empstdL
+deltaYDISCORDL = deriativeDiscordL * deltaXDISCORDL
+print("Länge - delta Y: %f cm" % deltaYDISCORDL)
+ergebnisDiscordL = (discordwertL + deltaYDISCORDL), (discordwertL - deltaYDISCORDL)
+print("Länge - Ergebnis: %f cm bis %f cm" % (ergebnisDiscordL[1], ergebnisDiscordL[0]))
 
-discordwert = (pow(e, b) * pow(21, a)) # Kennlinie a1.pdf Discord
-deriativeDiscord = 1.81023 * pow(21,2.682) #Wolfram Alpha ausgerchnet #21 ist VARIABLE X EINFACH IRGENDEIN CM / Strecke
-#deltaXDISCORD =
+
+variable_discord_spannungB = 0.877
+discordwertB = (pow(e, b) * pow(variable_discord_spannungB, a)) # Kennlinie a1.pdf Discord
+deriativeDiscordB = 3.12093 * pow(variable_discord_spannungB,11.393) #Wolfram Alpha ausgerchnet #21 ist VARIABLE X EINFACH IRGENDEIN CM / Strecke
+
+
+
+deltaXDISCORDB = y_empstdB
+deltaYDISCORDB = deriativeDiscordB * deltaXDISCORDB
 
 #FINALWERT = Discordwert +- deriative * delta x
-print("Laenge: %f mV" % discordwert)
+print("Breite - delta Y: %f cm" % deltaYDISCORDB)
+ergebnisDiscordB = (discordwertB + deltaYDISCORDB), (discordwertB - deltaYDISCORDB)
+print("Breite - Ergebnis: %f cm bis %f cm" % (ergebnisDiscordB[1], ergebnisDiscordB[0]))
+
+flaecheinsgesamtMIN = ergebnisDiscordB[1] * ergebnisDiscordL[1]
+flaecheinsgesamtMAX = ergebnisDiscordB[0] * ergebnisDiscordL[0]
+print("Flaeche - Ergebnis: %f cm^2 bis %f cm^2" % (flaecheinsgesamtMIN, flaecheinsgesamtMAX))
+originalBlattFlaeche = 29.7 * 21 #Aus a1.pdf abgeschrieben
+print("Original Flaeche: %f cm^2" % (originalBlattFlaeche))
 
 
-
-excelnewY = (pow(e, excelb) * pow(210, excela)) # Kennline Excel Tabellen Moodle
-deriativeMoodle = 4.36322 * pow(21,7.966) #Wolfram Alpha ausgerchnet #21 ist VARIABLE X EINFACH IRGENDEIN CM / Strecke
+#excelnewY = (pow(e, excelb) * pow(210, excela)) # Kennline Excel Tabellen Moodle
+#deriativeMoodle = 4.36322 * pow(21,7.966) #Wolfram Alpha ausgerchnet #21 ist VARIABLE X EINFACH IRGENDEIN CM / Strecke
 #deltaXMOODLE =
-print("Laenge: %f V" % excelnewY)
+#print("Laenge: %f V" % excelnewY)
+
+#Nummer 3 b
