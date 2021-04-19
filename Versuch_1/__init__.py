@@ -109,8 +109,8 @@ logawerte = np.log(werte)
 fig, ax = plt.subplots()
 
 ax.plot(logawerteEingang, logawerteAusgang) # logawerte[:,1] = x, logawerte[:,0] = y
-ax.set_xlabel('Spannung [in V]')
-ax.set_ylabel('Abstand [in cm]')
+ax.set_xlabel('Log Spannung [in V]')
+ax.set_ylabel('Log Abstand [in cm]')
 ax.set_title('MOODLE Kennlinie');
 show()
 
@@ -224,11 +224,30 @@ print("Breite - delta Y: %f cm" % deltaYDISCORDB)
 ergebnisDiscordB = (discordwertB + deltaYDISCORDB), (discordwertB - deltaYDISCORDB)
 print("Breite - Ergebnis: %f cm bis %f cm" % (ergebnisDiscordB[1], ergebnisDiscordB[0]))
 
+
+#Partielle Ableitungen
+#Fläche = Länge S * Breite T
+S_discord = discordwertL
+T_discord = discordwertB
+ableitung_S = T_discord
+ableitung_T = S_discord
+delta_S = deltaYDISCORDL
+delta_T = deltaYDISCORDB
+
+delta_V = sqrt(pow(ableitung_S*delta_S, 2) + pow(ableitung_T * delta_T, 2))
+
+
+
 flaecheinsgesamtMIN = ergebnisDiscordB[1] * ergebnisDiscordL[1]
 flaecheinsgesamtMAX = ergebnisDiscordB[0] * ergebnisDiscordL[0]
-print("Flaeche - Ergebnis: %f cm^2 bis %f cm^2" % (flaecheinsgesamtMIN, flaecheinsgesamtMAX))
+
+ErgebnisMIN = S_discord*T_discord - delta_V
+ErgebnisMAX = S_discord*T_discord + delta_V
+
+print("delta_V: %f" % delta_V)
+print("\nFlaeche - Ergebnis: %f cm^2 bis %f cm^2" % (ErgebnisMIN, ErgebnisMAX))
 originalBlattFlaeche = 29.7 * 21 #Aus a1.pdf abgeschrieben
-print("Original Flaeche: %f cm^2" % (originalBlattFlaeche))
+print("\nOriginal Flaeche: %f cm^2" % (originalBlattFlaeche))
 
 
 #excelnewY = (pow(e, excelb) * pow(210, excela)) # Kennline Excel Tabellen Moodle
