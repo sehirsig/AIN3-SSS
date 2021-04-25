@@ -171,9 +171,9 @@ print("\n\n")
 korrekteAngabe_6826L = (y_meanL + t_6826 * y_empstdL, y_meanL - t_6826 * y_empstdL)
 korrekteAngabe_95L = (y_meanL + t_95 * y_empstdL, y_meanL - t_95 * y_empstdL)
 print(r" x = %f +- %f * %f [V]" % (y_meanL, t_6826, y_empstdL))
-print(r"Messergebnis Laenge mit 68.26%% Sicherheit: %f V bis %f V" % (korrekteAngabe_6826L[0], korrekteAngabe_6826L[1]))
+print(r"Messergebnis Laenge mit 68.26%% Sicherheit: %f V bis %f V" % (korrekteAngabe_6826L[1], korrekteAngabe_6826L[0]))
 print(r" x = %f +- %f * %f [V]" % (y_meanL, t_95, y_empstdL))
-print(r"Messergebnis Laenge mit 95%% Sicherheit: %f V bis %f V" % (korrekteAngabe_95L[0], korrekteAngabe_95L[1]))
+print(r"Messergebnis Laenge mit 95%% Sicherheit: %f V bis %f V" % (korrekteAngabe_95L[1], korrekteAngabe_95L[0]))
 
 
 
@@ -192,9 +192,9 @@ print("\n\n")
 korrekteAngabe_6826B = (y_meanB + t_6826 * y_empstdB, y_meanB - t_6826 * y_empstdB)
 korrekteAngabe_95B = (y_meanB + t_95 * y_empstdB, y_meanB - t_95 * y_empstdB)
 print(r" x = %f +- %f * %f [V]" % (y_meanB, t_6826, y_empstdB))
-print(r"Messergebnis Breite mit 68.26%% Sicherheit: %f V bis %f V" % (korrekteAngabe_6826B[0], korrekteAngabe_6826B[1]))
+print(r"Messergebnis Breite mit 68.26%% Sicherheit: %f V bis %f V" % (korrekteAngabe_6826B[1], korrekteAngabe_6826B[0]))
 print(r" x = %f +- %f * %f [V]" % (y_meanB, t_95, y_empstdB))
-print(r"Messergebnis Breite mit 95%% Sicherheit: %f V bis %f V" % (korrekteAngabe_95B[0],korrekteAngabe_95B[1]))
+print(r"Messergebnis Breite mit 95%% Sicherheit: %f V bis %f V" % (korrekteAngabe_95B[1],korrekteAngabe_95B[0]))
 
 # Fläche = Länge * Breite
 
