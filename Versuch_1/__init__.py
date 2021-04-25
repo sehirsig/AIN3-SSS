@@ -44,8 +44,8 @@ for i in data_list:
     loc_data_mean = np.mean(i, dtype=float)
     loc_data_std = np.std(i, dtype=float)
     count = count + 1
-    file_mean.write("%d: Mean: %1.5f |" % (count, loc_data_mean))
-    file_mean.write(" STD: %f\n" % loc_data_std)
+    file_mean.write("%d. Mean: %1.5f\n" % (count, loc_data_mean))
+    file_std.write("%d. STD: %f\n" % (count, loc_data_std))
     data_means.append(loc_data_mean)
     data_std.append(loc_data_std)
 
