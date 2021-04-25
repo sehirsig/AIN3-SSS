@@ -163,16 +163,18 @@ y_stdL = np.std(dina4_laenge, dtype=float) # Standardabweichung
 y_empstdL = (y_stdL / sqrt(dina4_laenge.size)) # Empirische Standardabweichung
 
 
-print("\nArithmetisches Mittel Laenge Ausgangswerte: %f V" % y_meanL)
-print("Empirische Standardabweichung Laenge Ausgangswerte: %f V" % y_empstdL)
+print("\n\n")
 
 #3.a.3
 #Geben Sie nun das Ergebnis Ihrer Abstandsmessung in cm in korrekter Form an.
 #Benutzen sie dazu die Fehlerfortpflanzung.
 korrekteAngabe_6826L = (y_meanL + t_6826 * y_empstdL, y_meanL - t_6826 * y_empstdL)
 korrekteAngabe_95L = (y_meanL + t_95 * y_empstdL, y_meanL - t_95 * y_empstdL)
-print(r"Messergebnis Laenge mit 68.26%% Sicherheit: %f cm bis %f cm" % (kennlinie(korrekteAngabe_6826L[0]), kennlinie(korrekteAngabe_6826L[1])))
-print(r"Messergebnis Laenge mit 95%% Sicherheit: %f cm bis %f cm" % (kennlinie(korrekteAngabe_95L[0]),kennlinie(korrekteAngabe_95L[1])))
+print(r" x = %f +- %f * %f [V]" % (y_meanL, t_6826, y_empstdL))
+print(r"Messergebnis Laenge mit 68.26%% Sicherheit: %f V bis %f V" % (korrekteAngabe_6826L[0], korrekteAngabe_6826L[1]))
+print(r" x = %f +- %f * %f [V]" % (y_meanL, t_95, y_empstdL))
+print(r"Messergebnis Laenge mit 95%% Sicherheit: %f V bis %f V" % (korrekteAngabe_95L[0], korrekteAngabe_95L[1]))
+
 
 
 #3.b
@@ -185,29 +187,40 @@ print(r"Messergebnis Laenge mit 95%% Sicherheit: %f cm bis %f cm" % (kennlinie(k
 y_meanB = discord_breite
 y_stdB = np.std(dina4_breite, dtype=float)
 y_empstdB = (y_stdB / sqrt(dina4_breite.size))
-print("\n\nArithmetisches Mittel Breite Ausgangswerte: %f V" % y_meanB)
-print("Empirische Standardabweichung Breite Ausgangswerte: %f V" % y_empstdB)
+print("\n\n")
 
 korrekteAngabe_6826B = (y_meanB + t_6826 * y_empstdB, y_meanB - t_6826 * y_empstdB)
 korrekteAngabe_95B = (y_meanB + t_95 * y_empstdB, y_meanB - t_95 * y_empstdB)
-print(r"Messergebnis Breite mit 68.26 Sicherheit: %f V bis %f V" % (kennlinie(korrekteAngabe_6826B[0]), kennlinie(korrekteAngabe_6826B[1])))
-print(r"Messergebnis Breite mit 95 Sicherheit: %f V bis %f V" % (kennlinie(korrekteAngabe_95B[0]),kennlinie(korrekteAngabe_95B[1])))
-
+print(r" x = %f +- %f * %f [V]" % (y_meanB, t_6826, y_empstdB))
+print(r"Messergebnis Breite mit 68.26%% Sicherheit: %f V bis %f V" % (korrekteAngabe_6826B[0], korrekteAngabe_6826B[1]))
+print(r" x = %f +- %f * %f [V]" % (y_meanB, t_95, y_empstdB))
+print(r"Messergebnis Breite mit 95%% Sicherheit: %f V bis %f V" % (korrekteAngabe_95B[0],korrekteAngabe_95B[1]))
 
 # Fläche = Länge * Breite
 
 #Ableitungsfunktion
 def ableitungkennlinie(variable):
-  return 3.12093 * pow(variable, 11.393)
+  return (a * pow(e, b) * pow(variable, a - 1))
 
-deriativediscordwertL = ableitungkennlinie(discord_laenge)
-deltaXL6826 = t_6826 * y_empstdL
-deltaXL95 = t_95 * y_empstdL
-deltaYL6826 = deriativediscordwertL * deltaXL6826
-deltaYL95 = deriativediscordwertL * deltaXL95
+deltaXL = y_empstdL
+deltaYL = ableitungkennlinie(discord_laenge) * deltaXL
 
-deriativediscordwertB = ableitungkennlinie(discord_breite)
-deltaXB6826 = t_6826 * y_empstdB
-deltaXB95 = t_95 * y_empstdB
-deltaYB6826 = deriativediscordwertB * deltaXB6826
-deltaYB95 = deriativediscordwertB * deltaXB95
+
+deltaXB = y_empstdB
+deltaYB = ableitungkennlinie(discord_breite) * deltaXB
+
+
+print("\nLänge: x = %f +- %f [cm]" % (kennlinie(discord_laenge), -deltaYL))
+print("Breite: x = %f +- %f [cm]" % (kennlinie(discord_breite), -deltaYB))
+
+eingang1 = kennlinie(discord_laenge)
+eingang2 = kennlinie(discord_breite)
+# Fläche = eingang1 * eingang2
+ableitungeingang1 = eingang2
+ableitungeingang2 = eingang1
+
+flaecheV = eingang1 * eingang2
+flaecheDeltaV = sqrt(pow(ableitungeingang1 * deltaYL, 2) + pow(ableitungeingang2 * deltaYB, 2))
+
+
+print("\nFlaeche Max: x = %f +- %f [cm^2]" % (flaecheV, flaecheDeltaV))
