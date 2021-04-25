@@ -138,7 +138,6 @@ y = logawerteAusgang
 #y = e^b * x^a
 
 yp = np.polyval([a, b], x)
-
 #plot
 fig, ax = plt.subplots()
 ax.plot(x, yp)
@@ -150,7 +149,7 @@ ax.set_title("a1.pdf Log Kennlinie")
 show()
 
 #Ergebnis
-print("Nichtlineare Kennlinie: y = e^%.3f * x^%.3f" % (a, b))
+print("Nichtlineare Kennlinie: y = e^%.3f * x^%.3f" % (b, a))
 
 #newY = pow(e, b) * pow(werte[:,1], a) #Rückrechnung
 #print(newY)
@@ -164,11 +163,12 @@ print("Nichtlineare Kennlinie: y = e^%.3f * x^%.3f" % (a, b))
 dina4_breite = np.genfromtxt('../messwerte/dina4b.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
 dina4_laenge = np.genfromtxt('../messwerte/dina4l.csv', dtype = float, delimiter = ',', skip_header = 1017, usecols=(4))
 
-t_6826 = 1.03 # Faktor t bei Sicherheit P = 68,26%
-t_95 = 2.09 # Faktor t bei Sicherheit P = 95%
+t_6826 = 1.0 # Faktor t bei Sicherheit P = 68,26%
+t_95 = 1.96 # Faktor t bei Sicherheit P = 95%
 
 discord_breite = 0.6796 #V
 discord_laenge = 0.877 #V
+
 
 #Nummer 2 BREITE
 #y_meanB = np.mean(dina4_breite, dtype=float)
@@ -180,7 +180,7 @@ print("Empirische Standardabweichung Breite Ausgangswerte: %f V" % y_empstdB)
 
 korrekteAngabe_6826B = (y_meanB + t_6826 * y_empstdB, y_meanB - t_6826 * y_empstdB)
 korrekteAngabe_95B = (y_meanB + t_95 * y_empstdB, y_meanB - t_95 * y_empstdB)
-print(r"Messergebnis Breite mit 68.26 Sicherheit: %f mV bis %f V" % (korrekteAngabe_6826B[1], korrekteAngabe_6826B[0]))
+print(r"Messergebnis Breite mit 68.26 Sicherheit: %f V bis %f V" % (korrekteAngabe_6826B[1], korrekteAngabe_6826B[0]))
 print(r"Messergebnis Breite mit 95 Sicherheit: %f V bis %f V" % (korrekteAngabe_95B[1],korrekteAngabe_95B[0]))
 
 print("\n")
