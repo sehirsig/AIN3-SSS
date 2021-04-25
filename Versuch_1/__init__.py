@@ -37,10 +37,10 @@ werte_x = werte[:,0]
 werte_y = werte[:,1]
 #werte[:,1] = x
 #werte[:,0] = y
-ax.plot(werte_x, werte_y)
-ax.set_xlabel('Spannung [in mV]')
-ax.set_ylabel('Abstand [in mm]')
-ax.set_title('a1.pdf Kennlinien');
+ax.plot(werte_y, werte_x) # Aufgabe 1 x = Abstand, y = Spannung , NUR BEI AUFGABE 1
+ax.set_xlabel('Abstand [in cm]')
+ax.set_ylabel('Spannung [in mV]')
+ax.set_title('a1.pdf Kennlinie');
 show()
 
 
@@ -97,7 +97,7 @@ print("Data saved")
 #ax.set_title('Kennlinien');
 #show()
 
-# Aufgabe 2.
+# Aufgabe 2. Aufgabe 1 x = Spannung, y = Abstand
 # Nummer 1 Logarithmieren
 logawerteEingang = np.log(werte_x)
 logawerteAusgang = np.log(werte_y)
@@ -111,7 +111,7 @@ fig, ax = plt.subplots()
 ax.plot(logawerteEingang, logawerteAusgang) # logawerte[:,1] = x, logawerte[:,0] = y
 ax.set_xlabel('Log Spannung [in V]')
 ax.set_ylabel('Log Abstand [in cm]')
-ax.set_title('MOODLE Kennlinie');
+ax.set_title('a1.pdf Kennlinie');
 show()
 
 
@@ -146,7 +146,7 @@ ax.grid(True)
 ax.scatter(x,y)
 ax.set_xlabel('Log Spannung [in V]')
 ax.set_ylabel('Log Abstand [in cm]')
-ax.set_title("DISCORD Log Kennlinie")
+ax.set_title("a1.pdf Log Kennlinie")
 show()
 
 #Ergebnis
@@ -238,8 +238,8 @@ delta_V = sqrt(pow(ableitung_S*delta_S, 2) + pow(ableitung_T * delta_T, 2))
 
 
 
-flaecheinsgesamtMIN = ergebnisDiscordB[1] * ergebnisDiscordL[1]
-flaecheinsgesamtMAX = ergebnisDiscordB[0] * ergebnisDiscordL[0]
+#flaecheinsgesamtMIN = ergebnisDiscordB[1] * ergebnisDiscordL[1]
+#flaecheinsgesamtMAX = ergebnisDiscordB[0] * ergebnisDiscordL[0]
 
 ErgebnisMIN = S_discord*T_discord - delta_V
 ErgebnisMAX = S_discord*T_discord + delta_V
