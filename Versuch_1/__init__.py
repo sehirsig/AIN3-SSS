@@ -132,7 +132,7 @@ ax.set_ylabel('Log Abstand [in cm]')
 ax.set_title("a1.pdf Log Kennlinie")
 show()
 
-print("Nichtlineare Kennlinie: y = e^%.3f * x^%.3f" % (b, a))
+print("Nichtlineare Kennlinie: y = e^%.3f * x^%.3f\n" % (b, a))
 
 #3. Flächenmessung mit Fehlerrechnung
 #3.a.1
@@ -161,20 +161,23 @@ def kennlinie(variable_spannung):
 y_meanL = discord_laenge
 y_stdL = np.std(dina4_laenge, dtype=float) # Standardabweichung
 y_empstdL = (y_stdL / sqrt(dina4_laenge.size)) # Empirische Standardabweichung
+korrekteAngabe_6826L = (y_meanL + t_6826 * y_empstdL, y_meanL - t_6826 * y_empstdL)
+korrekteAngabe_95L = (y_meanL + t_95 * y_empstdL, y_meanL - t_95 * y_empstdL)
+print("Vertrauensbereich Länge:")
+print(r"68.26%%: x = %f +- %f * %f [V]" % (y_meanL, t_6826, y_empstdL))
+print(r"95%%: x = %f +- %f * %f [V]" % (y_meanL, t_95, y_empstdL))
 
-
-print("\n\n")
+#Ableitungsfunktion
+def ableitungkennlinie(variable):
+  return (a * pow(e, b) * pow(variable, a - 1))
 
 #3.a.3
 #Geben Sie nun das Ergebnis Ihrer Abstandsmessung in cm in korrekter Form an.
 #Benutzen sie dazu die Fehlerfortpflanzung.
-korrekteAngabe_6826L = (y_meanL + t_6826 * y_empstdL, y_meanL - t_6826 * y_empstdL)
-korrekteAngabe_95L = (y_meanL + t_95 * y_empstdL, y_meanL - t_95 * y_empstdL)
-print(r" x = %f +- %f * %f [V]" % (y_meanL, t_6826, y_empstdL))
-print(r"Messergebnis Laenge mit 68.26%% Sicherheit: %f V bis %f V" % (korrekteAngabe_6826L[1], korrekteAngabe_6826L[0]))
-print(r" x = %f +- %f * %f [V]" % (y_meanL, t_95, y_empstdL))
-print(r"Messergebnis Laenge mit 95%% Sicherheit: %f V bis %f V" % (korrekteAngabe_95L[1], korrekteAngabe_95L[0]))
-
+deltaXL = y_empstdL
+deltaYL = ableitungkennlinie(discord_laenge) * deltaXL
+print("Fehlerfortpflanzung Länge:")
+print("x = %f +- %f [cm]" % (kennlinie(discord_laenge), -deltaYL))
 
 
 #3.b
@@ -191,27 +194,15 @@ print("\n\n")
 
 korrekteAngabe_6826B = (y_meanB + t_6826 * y_empstdB, y_meanB - t_6826 * y_empstdB)
 korrekteAngabe_95B = (y_meanB + t_95 * y_empstdB, y_meanB - t_95 * y_empstdB)
-print(r" x = %f +- %f * %f [V]" % (y_meanB, t_6826, y_empstdB))
-print(r"Messergebnis Breite mit 68.26%% Sicherheit: %f V bis %f V" % (korrekteAngabe_6826B[1], korrekteAngabe_6826B[0]))
-print(r" x = %f +- %f * %f [V]" % (y_meanB, t_95, y_empstdB))
-print(r"Messergebnis Breite mit 95%% Sicherheit: %f V bis %f V" % (korrekteAngabe_95B[1],korrekteAngabe_95B[0]))
+print("Vertrauensbereich Breite:")
+print(r"68.26%%: x = %f +- %f * %f [V]" % (y_meanB, t_6826, y_empstdB))
+print(r"95%%: x = %f +- %f * %f [V]" % (y_meanB, t_95, y_empstdB))
 
 # Fläche = Länge * Breite
-
-#Ableitungsfunktion
-def ableitungkennlinie(variable):
-  return (a * pow(e, b) * pow(variable, a - 1))
-
-deltaXL = y_empstdL
-deltaYL = ableitungkennlinie(discord_laenge) * deltaXL
-
-
 deltaXB = y_empstdB
 deltaYB = ableitungkennlinie(discord_breite) * deltaXB
-
-
-print("\nLänge: x = %f +- %f [cm]" % (kennlinie(discord_laenge), -deltaYL))
-print("Breite: x = %f +- %f [cm]" % (kennlinie(discord_breite), -deltaYB))
+print("Fehlerfortpflanzung Breite:")
+print("x = %f +- %f [cm]" % (kennlinie(discord_breite), -deltaYB))
 
 eingang1 = kennlinie(discord_laenge)
 eingang2 = kennlinie(discord_breite)
