@@ -8,4 +8,4 @@ imageub = cv2.imread("../../BilderV2/unbearbeitet.png")
 imageub = imageub.astype('float32')
 
 fin = np.subtract(imageub,imagedb)
-cv2.imwrite("../BilderV2/dunkelbearbeitet.png", fin.astype('uint8'))
+cv2.imwrite("../../BilderV2/dunkelbearbeitet.png", fin.astype('uint8'))

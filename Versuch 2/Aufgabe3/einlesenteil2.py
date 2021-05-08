@@ -14,11 +14,11 @@ imageub = imageub.astype('float32')
 
 darksubtract = np.subtract(imageub,imagedb) # Dunkelbild von Eingangsbild abziehen
 
-cv2.imwrite("../BilderV2/dunkelbearbeitet.png", darksubtract.astype('uint8'))
+cv2.imwrite("../../BilderV2/dunkelbearbeitet.png", darksubtract.astype('uint8'))
 
 meanwhite = np.divide(imagewb, np.mean(imagewb)) # Weißbild normiert mit Mittelwert zu 1
 
 fin = np.divide(darksubtract, meanwhite) # Bearbeitetes Eingangsbild mit meanwhite dividieren
 
-cv2.imwrite("../BilderV2/" + eingangsbildname + " - bearbeitet.png", fin.astype('uint8'))
+cv2.imwrite("../../BilderV2/" + eingangsbildname + " - bearbeitet.png", fin.astype('uint8'))
 

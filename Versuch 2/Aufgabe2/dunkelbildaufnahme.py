@@ -15,8 +15,8 @@ while(True):
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     cv2.imshow('frame', gray)
     if cv2.waitKey(1) & 0xFF == ord('f'):
-        cv2.imwrite("../BilderV2/dunkel" + str(durchlauf) + ".png", gray)
-        image = cv2.imread("../BilderV2/dunkel" + str(durchlauf) + ".png")
+        cv2.imwrite("../../BilderV2/dunkel" + str(durchlauf) + ".png", gray)
+        image = cv2.imread("../../BilderV2/dunkel" + str(durchlauf) + ".png")
         dunkelbilder.append(image.astype('float32'))
         durchlauf = durchlauf + 1
     if cv2.waitKey(1) & 0xFF == ord('q'):
