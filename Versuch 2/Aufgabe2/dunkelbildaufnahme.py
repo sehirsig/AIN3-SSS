@@ -27,6 +27,6 @@ while(True):
         break;
 
 print(dub.astype('uint8'))
-cv2.imwrite("../BilderV2/dunkelbild.png", dub.astype('uint8'))
+cv2.imwrite("../../BilderV2/dunkelbild.png", dub.astype('uint8'))
 cap.release()
 cv2.destroyAllWindows()
