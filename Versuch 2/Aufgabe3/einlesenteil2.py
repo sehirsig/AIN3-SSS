@@ -7,7 +7,9 @@ imagedb = imagedb.astype('float32')
 imagewb = cv2.imread("../../BilderV2/weißbild.png") #weißbild
 imagewb = imagewb.astype('float32')
 
-imageub = cv2.imread("../../BilderV2/unbearbeitet.png") #unbearbeitetes einlesebild
+
+eingangsbildname = "unbearbeitet"
+imageub = cv2.imread("../../BilderV2/" + eingangsbildname + ".png") #unbearbeitetes einlesebild
 imageub = imageub.astype('float32')
 
 darksubtract = np.subtract(imageub,imagedb) # Dunkelbild von Eingangsbild abziehen
@@ -18,5 +20,5 @@ meanwhite = np.divide(imagewb, np.mean(imagewb)) # Weißbild normiert mit Mittel
 
 fin = np.divide(darksubtract, meanwhite) # Bearbeitetes Eingangsbild mit meanwhite dividieren
 
-cv2.imwrite("../BilderV2/aufgabe3bearbeitet.png", fin.astype('uint8'))
+cv2.imwrite("../BilderV2/" + eingangsbildname + " - bearbeitet.png", fin.astype('uint8'))
 
