@@ -8,12 +8,6 @@ image = image.astype('float32')
 plt.imshow(image)
 plt.show()
 
-schwarzbeginn = 0
-grau1beginn = 2000
-grau2beginn = 4000
-grau3beginn = 6000
-weißbeginn = 8000
-
 schwarz = image[:,0:50]
 grau1 = image[:,150:200]
 grau2 = image[:,300:350]
