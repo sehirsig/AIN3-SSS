@@ -17,7 +17,8 @@ while(True):
     cv2.imshow('frame', gray)
     if cv2.waitKey(1) & 0xFF == ord('f'):
         cv2.imwrite("../BilderV2/dunkel" + str(durchlauf) + ".png", gray)
-        dunkelbilder.append(cv2.imread("../BilderV2/dunkel" + str(durchlauf) + ".png"))
+        image = cv2.imread("../BilderV2/dunkel" + str(durchlauf) + ".png")
+        dunkelbilder.append(image.astype('float32'))
         durchlauf = durchlauf + 1
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break;
@@ -25,9 +26,7 @@ while(True):
         dub = np.mean(dunkelbilder, axis=0)
         break;
 
-print(dub)
-plt.imshow(dub/255)
-plt.show()
-cv2.imwrite("../BilderV2/dunkelbild.png", dub)
+print(dub.astype('uint8'))
+cv2.imwrite("../BilderV2/dunkelbild.png", dub.astype('uint8'))
 cap.release()
 cv2.destroyAllWindows()
