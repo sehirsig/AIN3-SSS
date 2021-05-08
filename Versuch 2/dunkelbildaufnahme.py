@@ -28,5 +28,6 @@ while(True):
 print(dub)
 plt.imshow(dub/255)
 plt.show()
+cv2.imwrite("../BilderV2/dunkelbild.png", dub)
 cap.release()
 cv2.destroyAllWindows()
