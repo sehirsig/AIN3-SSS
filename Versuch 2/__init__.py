@@ -5,14 +5,16 @@ import cv2
 
 #Tutorial
 print("Hello")
-cap = cv2.VideoCapture(-1)
+cap = cv2.VideoCapture(0)
 while(True):
     ret, frame = cap.read()
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     cv2.imshow('frame', gray)
+    if cv2.waitKey(1) & 0xFF == ord('f'):
+        cv2.imwrite("../BilderV2/unbearbeitet.png", gray)
+        break;
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break;
-
 print("frame width: " + str(cap.get(3)))
 print("frame height: " + str(cap.get(4)))
 print("--------------------------------")
