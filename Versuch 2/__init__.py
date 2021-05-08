@@ -26,3 +26,6 @@ print("--------------------------------")
 print("white balance: " + str(cap.get(17)))
 cap.release()
 cv2.destroyAllWindows()
+
+
+#1. Aufnahme und Analyse eines Grauwertkeiles
