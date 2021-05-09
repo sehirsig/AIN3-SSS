@@ -7,7 +7,7 @@ import cv2
 cap = cv2.VideoCapture(0)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 600)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 400)
-cap.set(12, cap.get(10)*0.4) #Belichtung 40% der Hellsättigung
+cap.set(15, cap.get(12)*0.4) #Belichtung 40% der Hellsättigung
 
 durchlauf = 0
 weißbilder = []
