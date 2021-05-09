@@ -7,7 +7,7 @@ import cv2
 cap = cv2.VideoCapture(0)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 600)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 400)
-old = cap.get(15)
+#old = cap.get(15)
 cap.set(15, cap.get(12)*0.4) #Belichtung 40% der Hellsättigung
 
 durchlauf = 0
@@ -31,9 +31,11 @@ while(True):
 imagedb = cv2.imread("../../BilderV2/dunkelbild.png")
 imagedb = imagedb.astype('float32')
 
-fin = np.subtract(dub,imagedb) #Weißbild - Dunkelbild
+fin = dub - imagedb #np.subtract(dub,(imagedb/255)) #Weißbild - Dunkelbild
 
 cv2.imwrite("../../BilderV2/weißbild.png", fin.astype('uint8'))
-cap.set(old)
+fin = fin * 255
+cv2.imwrite("../../BilderV2/weißbild_HOCHKONSTRAST.png", fin.astype('uint8'))
+#cap.set(old)
 cap.release()
 cv2.destroyAllWindows()

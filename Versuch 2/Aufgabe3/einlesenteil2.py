@@ -20,7 +20,7 @@ meanwhite = np.divide(imagewb, np.mean(imagewb)) # Weißbild normiert mit Mittel
 
 cv2.imwrite("../../BilderV2/meanwhitebearbeitet.png", darksubtract.astype('uint8'))
 
-fin = np.divide(darksubtract, meanwhite) # Bearbeitetes Eingangsbild mit meanwhite dividieren
+fin = darksubtract/meanwhite #np.divide(darksubtract, meanwhite) # Bearbeitetes Eingangsbild mit meanwhite dividieren
 
 cv2.imwrite("../../BilderV2/" + eingangsbildname + " - bearbeitet.png", fin.astype('uint8'))
 
