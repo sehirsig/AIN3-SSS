@@ -18,7 +18,7 @@ cv2.imwrite("../../BilderV2/dunkelbearbeitet.png", darksubtract.astype('uint8'))
 
 meanwhite = np.divide(imagewb, np.mean(imagewb)) # Weißbild normiert mit Mittelwert zu 1
 
-cv2.imwrite("../../BilderV2/meanwhitebearbeitet.png", darksubtract.astype('uint8'))
+cv2.imwrite("../../BilderV2/meanwhitebearbeitet.png", meanwhite.astype('uint8'))
 
 fin = darksubtract/meanwhite #np.divide(darksubtract, meanwhite) # Bearbeitetes Eingangsbild mit meanwhite dividieren
 

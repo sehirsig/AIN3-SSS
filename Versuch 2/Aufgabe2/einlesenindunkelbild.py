@@ -1,6 +1,8 @@
 import cv2
 import numpy as np
 
+#Nicht erweitern
+
 imagedb = cv2.imread("../../BilderV2/dunkelbild.png")
 imagedb = imagedb.astype('float32')
 
