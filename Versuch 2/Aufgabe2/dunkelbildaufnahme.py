@@ -27,7 +27,7 @@ while(True):
 
 
 cv2.imwrite("../../BilderV2/dunkelbild.png", dub.astype('uint8'))
-dub = dub * 255
+dub = (dub / dub.max()) * 255
 cv2.imwrite("../../BilderV2/dunkelbild_HOCHKONTRAST.png", dub.astype('uint8'))
 cap.release()
 cv2.destroyAllWindows()

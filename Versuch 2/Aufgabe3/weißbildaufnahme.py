@@ -34,8 +34,9 @@ imagedb = imagedb.astype('float32')
 fin = dub - imagedb #np.subtract(dub,(imagedb/255)) #Weißbild - Dunkelbild
 
 cv2.imwrite("../../BilderV2/weißbild.png", fin.astype('uint8'))
-fin = fin * 255
+fin = (fin / fin.max()) * 255
 cv2.imwrite("../../BilderV2/weißbild_HOCHKONSTRAST.png", fin.astype('uint8'))
 #cap.set(old)
 cap.release()
 cv2.destroyAllWindows()
+
