@@ -18,3 +18,4 @@ p.terminate()
 print('done')
 plt.plot(decoded)
 plt.show()
+
