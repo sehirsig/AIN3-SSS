@@ -16,10 +16,10 @@ fig2, ax2 = plt.subplots()
 ax2.plot(fouriertransformierte)
 plt.show()
 
-#Grundperiode: 0,00002267573696145125s (1/44100Hz) ??
-#Grundfrequenz: 44100 Hz ??
+#Grundperiode:
+#Grundfrequenz:
 #Abtastpunkte: 225280
-#Abtastintervall: 5,10839ms ??
+#Abtastintervall:
 #
 
 # frequenz = n schwingungen / (Signallänge M) * Abtastintervall
