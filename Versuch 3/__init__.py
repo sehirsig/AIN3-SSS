@@ -56,9 +56,9 @@ plt.show()
 #Aufgabe 1
 # Grundperiode: 1.905 miliSekunden
 # Grundfrequenz: 1/0.001905 => 524.9343832 Hz
-# Signaldauer M : 5.108390023 Sekunden
+# Signaldauer M: 5.108390023 Sekunden
 # Abtastfrequenz: 44100 Hz
-# Signallänge M: 225280
+# Signallänge (Anzahl Abtastungen): 225280
 # Abtastintervall deltaT: 0.000022675736962890624 Sekunden
 #
 
@@ -73,5 +73,5 @@ fig2, ax2 = plt.subplots()
 ax2.plot(frequencys, np.abs(fouriertransformierte))
 ax2.set_xlabel('Frequenz (Hz)')
 ax2.set_ylabel('Amplitude (V)')
-ax2.set_title("Fouriertransformierte")
+ax2.set_title("Amplitudenspektrum")
 plt.show()
