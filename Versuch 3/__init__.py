@@ -25,7 +25,7 @@ deltaT = aufnehmsekunden / M #(0.022675736962890623 ms) Abtastintervall
 
 zeitproabtast = []
 for k in range(M):
-    zeitproabtast.append(k*deltaT/1000) #ms
+    zeitproabtast.append(k*deltaT) #s
 fig4, ax4 = plt.subplots()
 ax4.set_xlabel('Zeit in Sekunden')
 fig4.text(0.02,0.5,'Amplitude (MilliVolt)', ha='center', va='center', rotation='vertical')
@@ -37,7 +37,7 @@ plt.show()
 
 zeittest = []
 for t in range(300):
-    zeittest.append(t*deltaT)
+    zeittest.append(t*deltaT) # ms
 fig3, ax3 = plt.subplots()
 ax3.set_xlabel('Zeit in Millisekunden')
 #ax3.set_ylabel('Amplitude')
