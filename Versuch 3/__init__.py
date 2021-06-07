@@ -3,18 +3,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 csv_file = "../SoundV3/sound_data.csv"
-datamicro = np.genfromtxt(csv_file, dtype = int,usecols=(0))
-datamilli = datamicro / 1000
-data = datamilli / 1000 #Volt
-
+data = np.genfromtxt(csv_file, dtype = int,usecols=(0))
 
 fouriertransformierte = np.fft.fft(data)
 
 fig, ax = plt.subplots()
 ax.set_xlabel('Abtastpunkte')
 ax.set_title("Amplitude mit Abtastpunkten")
-fig.text(0.02,0.5,'Amplitude (MilliVolt)', ha='center', va='center', rotation='vertical')
-ax.plot(datamilli)
+fig.text(0.02,0.5,'Amplitude', ha='center', va='center', rotation='vertical')
+ax.plot(data)
 
 plt.show()
 
@@ -28,12 +25,10 @@ for k in range(M):
     zeitproabtast.append(k*deltaT) #s
 fig4, ax4 = plt.subplots()
 ax4.set_xlabel('Zeit in Sekunden')
-fig4.text(0.02,0.5,'Amplitude (MilliVolt)', ha='center', va='center', rotation='vertical')
-ax4.plot(zeitproabtast, datamilli)
+fig4.text(0.02,0.5,'Amplitude', ha='center', va='center', rotation='vertical')
+ax4.plot(zeitproabtast, data)
 ax4.set_title("Amplitude mit Aufnahme-Zeit")
 plt.show()
-
-
 
 zeittest = []
 for t in range(300):
@@ -41,8 +36,8 @@ for t in range(300):
 fig3, ax3 = plt.subplots()
 ax3.set_xlabel('Zeit in Millisekunden')
 #ax3.set_ylabel('Amplitude')
-fig3.text(0.02,0.5,'Amplitude (MilliVolt)', ha='center', va='center', rotation='vertical')
-ax3.plot(zeittest, datamilli[0:300])
+fig3.text(0.02,0.5,'Amplitude', ha='center', va='center', rotation='vertical')
+ax3.plot(zeittest, data[0:300])
 ax3.set_title("Ausschnitt Grundperiode")
 ax3.grid()
 plt.show()
@@ -72,6 +67,6 @@ for i in range(len(fouriertransformierte)):
 fig2, ax2 = plt.subplots()
 ax2.plot(frequencys, np.abs(fouriertransformierte))
 ax2.set_xlabel('Frequenz (Hz)')
-ax2.set_ylabel('Amplitude (V)')
+ax2.set_ylabel('Amplitude')
 ax2.set_title("Amplitudenspektrum")
 plt.show()
