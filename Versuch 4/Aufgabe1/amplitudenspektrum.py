@@ -17,7 +17,7 @@ for i in range(len(fouriertransformierte)):
 # n / M * deltaT
 
 fig2, ax2 = plt.subplots()
-ax2.plot(frequencys, np.abs(fouriertransformierte))
+ax2.plot(frequencys[0:22050], np.abs(fouriertransformierte[0:22050]))
 ax2.set_xlabel('Frequenz (Hz)')
 ax2.set_ylabel('Amplitude')
 ax2.set_title("Amplitudenspektrum")
