@@ -18,7 +18,7 @@ Spektrum_hoch = np.genfromtxt("../../SoundV4/sound_data_hoch.csv", dtype = float
 Spektrum_links = np.genfromtxt("../../SoundV4/sound_data_links.csv", dtype = float,usecols=(0))
 
 #Hier die File einfügen
-inputfile = np.genfromtxt("../../SoundV4/test_sound_data_tief.csv", dtype = float,usecols=(0))
+inputfile = np.genfromtxt("../../SoundV4/test_sound_data_links.csv", dtype = float,usecols=(0))
 ip = np.real(windowing_func(inputfile))
 
 woerter = ["Hoch", "Tief", "Rechts", "Links"]
@@ -28,18 +28,23 @@ ausmax = 0
 korr_hoch = scsts.pearsonr(ip, Spektrum_rechts)[0] # [0] für den RealTeil
 ausmax = korr_hoch
 auswertung = 1
+print("Korrelation Hoch: " + str(korr_hoch))
 korr_tief = scsts.pearsonr(ip, Spektrum_tief)[0]
 if (korr_tief > ausmax):
     auswertung = 2
     ausmax = korr_tief
+print("Korrelation Tief: " + str(korr_tief))
 korr_rechts = scsts.pearsonr(ip, Spektrum_hoch)[0]
 if (korr_rechts > ausmax):
     auswertung = 3
     ausmax = korr_rechts
+print("Korrelation Rechts: " + str(korr_rechts))
 korr_links = scsts.pearsonr(ip, Spektrum_links)[0]
 if (korr_links > ausmax):
     auswertung = 4
     ausmax = korr_links
+print("Korrelation links: " + str(korr_links))
 
+print("")
 print("Erkanntes Wort: " + woerter[auswertung - 1])
 print("Korrelation: " + str(ausmax))
