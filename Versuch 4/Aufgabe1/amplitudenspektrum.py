@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 #Aufgabe1 c)
 
-csv_file = "../../SoundV4/sound_data_6942018.csv"
+csv_file = "../../SoundV4/testsound.csv"
 data = np.genfromtxt(csv_file, dtype = int,usecols=(0))
 
 fouriertransformierte = np.fft.fft(data)

@@ -13,7 +13,7 @@ def windowing_func(array):
 
 #Versuch 2 a)
 csv_filedest = "../../SoundV4/"
-csv_filename = "hoch/sound_data_hoch"
+csv_filename = "links/sound_data_links"
 csv_fileend = ".csv"
 
 alle_spektren = []
@@ -25,7 +25,7 @@ Spektrum_Final = np.mean(alle_spektren, 0)
 
 print
 csv_file_final = csv_filedest + csv_filename + csv_fileend
-np.savetxt(csv_file_final, np.real(Spektrum_Final), delimiter=",")
+np.savetxt(csv_file_final, np.abs(Spektrum_Final), delimiter=",")
 
 fouriertransformierte = np.fft.fft(Spektrum_Final)
 aufnehmsekunden = 1 #1 Sekunde

@@ -47,7 +47,7 @@ plt.title("Tonaufnahme + Trigger: Sample" + str(randomnumber))
 plt.show()
 
 #csv_file = "../../SoundV4/sound_data_" + str(randomnumber) + ".csv"
-csv_file = "../../SoundV4/test_sound_data_links.csv"
+csv_file = "../../SoundV4/testsound.csv"
 np.savetxt(csv_file, trigger, delimiter=",")
 
 #data = np.genfromtxt(csv_file, dtype = int,usecols=(0))

@@ -18,8 +18,8 @@ Spektrum_hoch = np.genfromtxt("../../SoundV4/sound_data_hoch.csv", dtype = float
 Spektrum_links = np.genfromtxt("../../SoundV4/sound_data_links.csv", dtype = float,usecols=(0))
 
 #Hier die File einfügen
-inputfile = np.genfromtxt("../../SoundV4/test_sound_data_links.csv", dtype = float,usecols=(0))
-ip = np.real(windowing_func(inputfile))
+inputfile = np.genfromtxt("../../SoundV4/testsound.csv", dtype = float,usecols=(0))
+ip = np.abs(windowing_func(inputfile))
 
 woerter = ["Hoch", "Tief", "Rechts", "Links"]
 auswertung = 0 # 1 = hoch, 2 = tief, 3 = rechts, 4 = links
