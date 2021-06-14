@@ -12,10 +12,10 @@ def windowing_func(array):
     fenster = np.array(list(zerteilen(array)))
     return np.fft.fft(fenster).mean(0)
 
-Spektrum_rechts = np.genfromtxt("../../SoundV4/sound_data_rechts.csv", dtype = float,usecols=(0))
-Spektrum_tief = np.genfromtxt("../../SoundV4/sound_data_tief.csv", dtype = float,usecols=(0))
-Spektrum_hoch = np.genfromtxt("../../SoundV4/sound_data_hoch.csv", dtype = float,usecols=(0))
-Spektrum_links = np.genfromtxt("../../SoundV4/sound_data_links.csv", dtype = float,usecols=(0))
+Spektrum_rechts = np.genfromtxt("../../SoundV4/rechts/test_sound_data_rechts.csv", dtype = float,usecols=(0))
+Spektrum_tief = np.genfromtxt("../../SoundV4/tief/test_sound_data_tief.csv", dtype = float,usecols=(0))
+Spektrum_hoch = np.genfromtxt("../../SoundV4/hoch/test_sound_data_hoch.csv", dtype = float,usecols=(0))
+Spektrum_links = np.genfromtxt("../../SoundV4/links/test_sound_data_links.csv", dtype = float,usecols=(0))
 
 #Hier die File einfügen
 inputfile = np.genfromtxt("../../SoundV4/testsound.csv", dtype = float,usecols=(0))
@@ -25,7 +25,7 @@ woerter = ["Hoch", "Tief", "Rechts", "Links"]
 auswertung = 0 # 1 = hoch, 2 = tief, 3 = rechts, 4 = links
 ausmax = 0
 
-korr_hoch = scsts.pearsonr(ip, Spektrum_rechts)[0] # [0] für den RealTeil
+korr_hoch = scsts.pearsonr(ip, Spektrum_hoch)[0] # [0] für den RealTeil
 ausmax = korr_hoch
 auswertung = 1
 print("Korrelation Hoch: " + str(korr_hoch))
@@ -34,7 +34,7 @@ if (korr_tief > ausmax):
     auswertung = 2
     ausmax = korr_tief
 print("Korrelation Tief: " + str(korr_tief))
-korr_rechts = scsts.pearsonr(ip, Spektrum_hoch)[0]
+korr_rechts = scsts.pearsonr(ip, Spektrum_rechts)[0]
 if (korr_rechts > ausmax):
     auswertung = 3
     ausmax = korr_rechts
@@ -43,7 +43,7 @@ korr_links = scsts.pearsonr(ip, Spektrum_links)[0]
 if (korr_links > ausmax):
     auswertung = 4
     ausmax = korr_links
-print("Korrelation links: " + str(korr_links))
+print("Korrelation Links: " + str(korr_links))
 
 print("")
 print("Erkanntes Wort: " + woerter[auswertung - 1])

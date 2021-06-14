@@ -13,7 +13,7 @@ def windowing_func(array):
 
 #Versuch 2 a)
 csv_filedest = "../../SoundV4/"
-csv_filename = "links/sound_data_links"
+csv_filename = "tief/test_sound_data_tief"
 csv_fileend = ".csv"
 
 alle_spektren = []
