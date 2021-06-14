@@ -17,7 +17,7 @@ print('Sprechen!')
 stream = p.open(format=FORMAT,channels=1,rate=SAMPLEFREQ,input=True,frames_per_buffer=FRAMESIZE)
 
 data = stream.read(NOFFRAMES*FRAMESIZE)
-decoded = numpy.fromstring(data, 'Int16');
+decoded = numpy.frombuffer(data, np.int16)
 
 stream.stop_stream()
 stream.close()
@@ -46,7 +46,8 @@ plt.title("yes")
 plt.title("Tonaufnahme + Trigger: Sample" + str(randomnumber))
 plt.show()
 
-csv_file = "../SoundV4/sound_data_" + str(randomnumber) + ".csv"
+#csv_file = "../../SoundV4/sound_data_" + str(randomnumber) + ".csv"
+csv_file = "../../SoundV4/test_sound_data_tief.csv"
 np.savetxt(csv_file, trigger, delimiter=",")
 
 #data = np.genfromtxt(csv_file, dtype = int,usecols=(0))

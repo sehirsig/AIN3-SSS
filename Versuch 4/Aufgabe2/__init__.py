@@ -1,13 +1,6 @@
-import scipy.signal as sgl
 import numpy as np
+import scipy.signal as sgl
 import matplotlib.pyplot as plt
-
-#Aufgabe1 d)
-
-csv_file = "../../SoundV4/sound_data_6942018.csv"
-data = np.genfromtxt(csv_file, dtype = int,usecols=(0))
-
-# Signal in Abschnitte von 512 Samples
 
 def zerteilen(array):
     gauss_fenster = np.array(sgl.gaussian(512, 512 / 4))
@@ -18,9 +11,22 @@ def windowing_func(array):
     fenster = np.array(list(zerteilen(array)))
     return np.fft.fft(fenster).mean(0)
 
-data_transformed = windowing_func(data)
+#Versuch 2 a)
+csv_filedest = "../../SoundV4/"
+csv_filename = "sound_data_tief"
+csv_fileend = ".csv"
 
-fouriertransformierte = np.fft.fft(data)
+alle_spektren = []
+for i in range(5):
+    data = np.genfromtxt(csv_filedest + csv_filename + str(i + 1) + csv_fileend, dtype = int,usecols=(0))
+    alle_spektren.append(windowing_func(data))
+
+Spektrum_Final = np.mean(alle_spektren, 0)
+
+csv_file_final = csv_filedest + csv_filename + csv_fileend
+np.savetxt(csv_file_final, np.real(Spektrum_Final), delimiter=",")
+
+fouriertransformierte = np.fft.fft(Spektrum_Final)
 aufnehmsekunden = 1 #1 Sekunde
 
 frequencys = []
@@ -28,8 +34,8 @@ for i in range(len(fouriertransformierte)):
     frequencys.append(i / aufnehmsekunden)
 
 fig2, ax2 = plt.subplots()
-ax2.plot(frequencys, np.abs(data_transformed))
+ax2.plot(frequencys, np.abs(Spektrum_Final))
 ax2.set_xlabel('Frequenz (Hz)')
 ax2.set_ylabel('Amplitude')
-ax2.set_title("Amplitudenspektrum2")
+ax2.set_title("Amplitudenspektrum " + csv_filename)
 plt.show()
