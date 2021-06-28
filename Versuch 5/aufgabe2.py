@@ -9,7 +9,7 @@ boxredlab = [1.09375, 2.08984375, 3.0078125,4.052734, 5.068359, 6.0742187, 7.031
 
 keithleytrms = [1.040, 2.096, 3.008, 4.065, 5.073, 6.081, 7.043, 8.053, 9.061, 10.071] #Hochgenaues Feinmessgerät #REF
 
-voltcraft = [ 1.035, 2.087, 2.995, 4.05, 5.05, 6.06, 7.02, 8.02, 9.03, 10.03] #Analog #AN
+voltcraft = [ 1.035, 2.087, 2.995, 4.05, 5.05, 6.06, 7.02, 8.02, 9.03, 10.03] #Analog #AN Multimeter
 
 # Genauigkeit = ( 1 / 2^n )
 # 11-Bit AD-Wandler
@@ -43,5 +43,4 @@ abweichungAD = math.sqrt((1/(len(boxredlab) - 1)) * adSUM)
 abweichungAN = math.sqrt((1/(len(voltcraft) - 1)) * anSUM)
 
 print("\nStandardabweichung AD-Wandler BoxRedLab: %f" % abweichungAD)
-print("Standardabweichung Analog Voltcraft: %f" % abweichungAN)
-print()
+print("Standardabweichung Analog Voltcraft Multimeter: %f" % abweichungAN)
